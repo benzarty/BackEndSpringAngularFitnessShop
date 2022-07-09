@@ -1,6 +1,9 @@
 package tn.esprit.spring.entity;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Set;
 
 @Entity
@@ -11,6 +14,52 @@ public class User {
     private String userFirstName;
     private String userLastName;
     private String userPassword;
+    
+	private String Phone ;
+	private boolean Active;
+	private String Picture;
+	private String Email;
+    
+	public String getPhone() {
+		return Phone;
+	}
+
+	public void setPhone(String phone) {
+		Phone = phone;
+	}
+
+	public boolean isActive() {
+		return Active;
+	}
+
+	public void setActive(boolean active) {
+		Active = active;
+	}
+
+	public String getPicture() {
+		return Picture;
+	}
+
+	public void setPicture(String picture) {
+		Picture = picture;
+	}
+
+	public String getEmail() {
+		return Email;
+	}
+
+	public void setEmail(String email) {
+		Email = email;
+	}
+
+
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="ClientFacure")
+	private Set<Facture> factures;
+
+
+
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "USER_ROLE",
             joinColumns = {

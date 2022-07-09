@@ -11,6 +11,7 @@ import tn.esprit.spring.entity.Role;
 import tn.esprit.spring.entity.User;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -63,6 +64,7 @@ public class UserService {
         Set<Role> userRoles = new HashSet<>();
         userRoles.add(role);
         user.setRole(userRoles);
+        user.setActive(false);
         user.setUserPassword(getEncodedPassword(user.getUserPassword()));
 
         return userDao.save(user);
@@ -71,4 +73,55 @@ public class UserService {
     public String getEncodedPassword(String password) {
         return passwordEncoder.encode(password);
     }
+    
+    public List<User> retrieveAllUsers() {
+		 List<User> users=(List<User>)userDao.findAll() ;
+		 return users;
+	}
+    
+    public User addUser(User r) {
+    	 Role role = roleDao.findById("User").get();
+         Set<Role> userRoles = new HashSet<>();
+         userRoles.add(role);
+         r.setRole(userRoles);
+		return userDao.save(r);
+	}
+
+	
+	public User retrieveUser(String id) {
+		// TODO Auto-generated method stub
+		return userDao.findById(id).orElse(null);
+	}
+	
+	
+	public void deleteUser(String id) {
+		
+		
+		User u=userDao.findById(id).orElse(null)	;
+		
+		u.getRole().clear();
+		
+		userDao.save(u);
+		userDao.deleteById(id);
+		
+		
+		}
+
+	
+	public User updateUser(User c) {
+		
+		User u=userDao.findById(c.getUserName()).orElse(null);
+		
+		u.setUserFirstName(c.getUserFirstName());
+		u.setUserLastName(c.getUserLastName());
+u.setEmail(c.getEmail());
+u.setPhone(c.getPhone());
+u.setPicture(c.getPhone());
+u.setActive(c.isActive());
+
+return userDao.save(u);
+		
+		
+	}
+    
 }
