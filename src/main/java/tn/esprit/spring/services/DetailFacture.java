@@ -3,6 +3,7 @@ package tn.esprit.spring.services;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -132,6 +133,9 @@ Long idFacture=pp.getIdFacture();
 	
 	
 	
+	public List<detailFacture> retrieveDetailFactureByidFacture(Long idfacture) {
+		return detailrepo.getDetailFactureByFacture(idfacture);
+	}
 	
 	
 	

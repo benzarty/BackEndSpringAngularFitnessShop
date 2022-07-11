@@ -35,7 +35,7 @@ public class detailFacture  implements Serializable {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Column(name="iddetailFacture")
-	private Long iddetailFacture; // Clé primaire
+	private Long iddetailFacture; 
 	private Integer qte;
 	private float prixtotal;
 	private Integer pourcentageRemise;
@@ -44,8 +44,7 @@ public class detailFacture  implements Serializable {
 	
 	
 	
-	@ManyToOne
-	@JsonIgnore
+	@ManyToOne	
 	private Produit Totheparentdetailfacture; 
 	
 	

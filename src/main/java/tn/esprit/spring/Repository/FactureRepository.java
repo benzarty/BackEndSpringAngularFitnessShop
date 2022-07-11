@@ -1,5 +1,7 @@
 package tn.esprit.spring.Repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -12,5 +14,12 @@ public interface FactureRepository extends CrudRepository<Facture, Long> {
 	
 	@Query("SELECT c FROM Facture c where c.ClientFacure.userName= :idClient AND c.active= TRUE ")
 	Facture getFacturesByClientAndActive(@Param("idClient") String idClient);
-
+	
+	
+	@Query("SELECT c FROM Facture c where c.ClientFacure.userName= :idClient  ")
+	List<Facture> getFacturesHistoriqueClient(@Param("idClient") String idClient);
+	
+	
+	
+	
 }
