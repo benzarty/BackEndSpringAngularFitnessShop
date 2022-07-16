@@ -15,9 +15,14 @@ public class User {
     private String userLastName;
     private String userPassword;
     
+	private String fileName;
+	
+	@Transient 
+	private String oldpassword;
+
+    
 	private String Phone ;
 	private boolean Active;
-	private String Picture;
 	private String Email;
     
 	public String getPhone() {
@@ -36,12 +41,14 @@ public class User {
 		Active = active;
 	}
 
-	public String getPicture() {
-		return Picture;
+
+
+	public String getOldpassword() {
+		return oldpassword;
 	}
 
-	public void setPicture(String picture) {
-		Picture = picture;
+	public void setOldpassword(String oldpassword) {
+		this.oldpassword = oldpassword;
 	}
 
 	public String getEmail() {
@@ -110,4 +117,15 @@ public class User {
     public void setRole(Set<Role> role) {
         this.role = role;
     }
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+    
+    
+    
 }

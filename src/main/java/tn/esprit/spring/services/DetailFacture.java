@@ -65,7 +65,8 @@ public class DetailFacture {
 		c.setFacturechildren(fact);
 		
 	           fact.setMontantRemise(fact.getMontantRemise()+mantantremise);
-	           fact.setMontantFacture(fact.getMontantFacture()+newprix);
+	           fact.setMontantFacture(Math.round(fact.getMontantFacture()+newprix));
+	           
 		detailrepo.save(c);
 			
 			
@@ -114,7 +115,7 @@ Long idFacture=pp.getIdFacture();
 		c.setFacturechildren(fact);
 		
 	           fact.setMontantRemise(fact.getMontantRemise()+mantantremise);
-	           fact.setMontantFacture(fact.getMontantFacture()+newprix);
+	           fact.setMontantFacture(Math.round(fact.getMontantFacture()+newprix));
 		detailrepo.save(c);
 			
 			

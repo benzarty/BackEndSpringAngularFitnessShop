@@ -2,6 +2,9 @@ package tn.esprit.spring.Repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -22,4 +25,8 @@ public interface FactureRepository extends CrudRepository<Facture, Long> {
 	
 	
 	
+	 @Transactional
+		@Modifying
+		@Query("update Facture c set c.active=FALSE where c.idFacture= :idfacture")
+		void Closefacture(@Param("idfacture") Long idfacture);
 }

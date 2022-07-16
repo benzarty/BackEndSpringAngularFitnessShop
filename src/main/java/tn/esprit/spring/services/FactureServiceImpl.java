@@ -41,6 +41,15 @@ public class FactureServiceImpl   {
 	
 	
 
+	
+	public void Closefacture(Long idfacture) {
+		
+		
+		facturerepo.Closefacture(idfacture);
+
+				
+	}
+
 
 	
 	

@@ -116,8 +116,8 @@ public class UserService {
 		u.setUserLastName(c.getUserLastName());
 u.setEmail(c.getEmail());
 u.setPhone(c.getPhone());
-u.setPicture(c.getPhone());
 u.setActive(c.isActive());
+
 
 return userDao.save(u);
 		
