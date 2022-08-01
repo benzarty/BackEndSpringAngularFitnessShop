@@ -21,6 +21,7 @@ public class StockServices {
 
 	public Stock addStock(Stock s) {
 		s.setDateCreation(new Date());
+		s.setQte(0);
 
 		return this.stockRepo.save(s);
 	}

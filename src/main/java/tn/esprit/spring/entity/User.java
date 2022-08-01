@@ -63,6 +63,11 @@ public class User {
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="ClientFacure")
 	private Set<Facture> factures;
+	
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="ClientEvent")
+	private Set<Events> events;
 
 
 

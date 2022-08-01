@@ -117,12 +117,20 @@ public class ProduitController {
 	
 
 	@PostMapping("/file/{stockid}")
-	public ResponseEntity<Response> createArticle(@RequestParam("file") MultipartFile file,
+	public boolean createArticle(@RequestParam("file") MultipartFile file,
 			@RequestParam("produit") String produit,@PathVariable Long stockid)
 			throws JsonParseException, JsonMappingException, Exception {
 		
 		
 		Stock stock=stockDao.findById(stockid).orElse(null);
+		
+		if(stock.getQte()<stock.getQteMin())
+		
+		{
+			stock.setQte(stock.getQte()+1);
+			
+			stockDao.save(stock);
+			
 
 
 			Produit arti = new ObjectMapper().readValue(produit, Produit.class);
@@ -147,12 +155,13 @@ public class ProduitController {
 
 
 		Produit art = produitDao.save(arti);
-
-		if (art != null) {
-			return new ResponseEntity<Response>(new Response(""), HttpStatus.OK);
-		} else {
-			return new ResponseEntity<Response>(new Response("Article not saved"), HttpStatus.BAD_REQUEST);
+		
+		return true;
+		
 		}
+
+		
+		return false;
 	}
 
 	

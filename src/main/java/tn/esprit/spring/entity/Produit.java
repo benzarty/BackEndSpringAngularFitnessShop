@@ -48,9 +48,11 @@ public class Produit implements Serializable{
 	@JsonIgnore
 	private Set<detailFacture> detailFacture; 
 	
-/*	
-	@OneToOne(cascade = CascadeType.MERGE) 
-	private DetailProduit Detailproduit;  */
+	
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="ReviewProduit")   
+	@JsonIgnore
+	private Set<Reviews> Review; 
 	
 
 	

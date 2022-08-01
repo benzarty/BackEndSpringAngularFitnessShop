@@ -33,6 +33,8 @@ import tn.esprit.spring.entity.User;
 import tn.esprit.spring.services.UserService;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -41,7 +43,6 @@ import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 
 @RestController
-
 public class UserController {
 
     @Autowired
@@ -61,7 +62,7 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-  @PostConstruct
+ // @PostConstruct
     public void initRoleAndUser() {
         userService.initRoleAndUser();
     }
@@ -236,11 +237,20 @@ return false;
 	
 	  }
 	
+		@GetMapping(path = "/Imgarticless/{idclient}")
+		public byte[] getPhoto(@PathVariable("idclient") String idclient) throws Exception {
+			User Article = userDao.findById(idclient).get();
+			return Files.readAllBytes(Paths.get(context.getRealPath("/Images/") + Article.getFileName()));
+		}
 	
 	
 	
-	
-	
+		@PostMapping("/email")
+	    @ResponseBody
+		public void email(@RequestBody User r)
+		{
+			 userService.sendSimpleEmail(r);
+		}
 	
 	
 	

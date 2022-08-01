@@ -4,6 +4,8 @@ package tn.esprit.spring.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 
 import tn.esprit.spring.Repository.RoleDao;
 import tn.esprit.spring.Repository.UserDao;
@@ -25,6 +27,9 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private JavaMailSender mailSender;
 
     public void initRoleAndUser() {
 
@@ -123,5 +128,33 @@ return userDao.save(u);
 		
 		
 	}
+	
+	
+	
+public void sendSimpleEmail(User r) {
+	
+	User u=userDao.findByEmail(r.getEmail());
+	
+				
+	int random = (int)(Math.random() * 9000000 + 1);
+	
+	String s=String.valueOf(random);
+
+	
+    u.setUserPassword(getEncodedPassword(s));
+
+    
+    userDao.save(u);
+
+	System.out.println(u);
+SimpleMailMessage message = new SimpleMailMessage();
+message.setFrom("m.benzarti.1996@gmail.com");
+message.setTo(u.getEmail());
+message.setText("Your new Password is "+s);
+message.setSubject("Password Change");
+mailSender.send(message);
+
+
+}
     
 }
