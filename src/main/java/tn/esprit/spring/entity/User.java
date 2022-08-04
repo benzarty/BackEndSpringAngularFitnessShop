@@ -9,22 +9,21 @@ import java.util.Set;
 @Entity
 public class User {
 
-    @Id
-    private String userName;
-    private String userFirstName;
-    private String userLastName;
-    private String userPassword;
-    
+	@Id
+	private String userName;
+	private String userFirstName;
+	private String userLastName;
+	private String userPassword;
+
 	private String fileName;
-	
-	@Transient 
+
+	@Transient
 	private String oldpassword;
 
-    
-	private String Phone ;
+	private String Phone;
 	private boolean Active;
 	private String Email;
-    
+
 	public String getPhone() {
 		return Phone;
 	}
@@ -40,8 +39,6 @@ public class User {
 	public void setActive(boolean active) {
 		Active = active;
 	}
-
-
 
 	public String getOldpassword() {
 		return oldpassword;
@@ -59,69 +56,65 @@ public class User {
 		Email = email;
 	}
 
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ClientFacure")
+	private Set<Facture> factures;
+
+	/*
+	 * @JsonIgnore
+	 * 
+	 * @OneToMany(cascade = CascadeType.ALL, mappedBy="MessageClient") private
+	 * Set<Messages> Message;
+	 */
 
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="ClientFacure")
-	private Set<Facture> factures;
-	
-	
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="ClientEvent")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ClientEvent")
 	private Set<Events> events;
 
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "USER_ROLE", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = {
+			@JoinColumn(name = "ROLE_ID") })
+	private Set<Role> role; // yenajem user barcha roles
 
+	public String getUserName() {
+		return userName;
+	}
 
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "USER_ROLE",
-            joinColumns = {
-                    @JoinColumn(name = "USER_ID")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "ROLE_ID")
-            }
-    )
-    private Set<Role> role;  //yenajem user barcha roles	
+	public String getUserFirstName() {
+		return userFirstName;
+	}
 
-    public String getUserName() {
-        return userName;
-    }
+	public void setUserFirstName(String userFirstName) {
+		this.userFirstName = userFirstName;
+	}
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+	public String getUserLastName() {
+		return userLastName;
+	}
 
-    public String getUserFirstName() {
-        return userFirstName;
-    }
+	public void setUserLastName(String userLastName) {
+		this.userLastName = userLastName;
+	}
 
-    public void setUserFirstName(String userFirstName) {
-        this.userFirstName = userFirstName;
-    }
+	public String getUserPassword() {
+		return userPassword;
+	}
 
-    public String getUserLastName() {
-        return userLastName;
-    }
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
+	}
 
-    public void setUserLastName(String userLastName) {
-        this.userLastName = userLastName;
-    }
+	public Set<Role> getRole() {
+		return role;
+	}
 
-    public String getUserPassword() {
-        return userPassword;
-    }
-
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
-    }
-
-    public Set<Role> getRole() {
-        return role;
-    }
-
-    public void setRole(Set<Role> role) {
-        this.role = role;
-    }
+	public void setRole(Set<Role> role) {
+		this.role = role;
+	}
 
 	public String getFileName() {
 		return fileName;
@@ -130,7 +123,5 @@ public class User {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
-    
-    
-    
+
 }
